@@ -32,6 +32,7 @@ const options: swaggerJsdoc.Options = {
         },
       },
       schemas: {
+        /** USER SCHEMAS */
         User: {
           type: 'object',
           properties: {
@@ -83,10 +84,12 @@ const options: swaggerJsdoc.Options = {
             email: {
               type: 'string',
               format: 'email',
+              description: 'Email del usuario',
             },
             password: {
               type: 'string',
               minLength: 8,
+              description: 'Contraseña del usuario',
             },
           },
         },
@@ -108,10 +111,12 @@ const options: swaggerJsdoc.Options = {
             email: {
               type: 'string',
               format: 'email',
+              description: 'Email actualizado del usuario',
             },
             name: {
               type: 'string',
               minLength: 2,
+              description: 'Nombre actualizado del usuario',
             },
           },
         },
@@ -121,10 +126,99 @@ const options: swaggerJsdoc.Options = {
           properties: {
             currentPassword: {
               type: 'string',
+              description: 'Contraseña actual del usuario',
             },
             newPassword: {
               type: 'string',
               minLength: 8,
+              description: 'Nueva contraseña del usuario',
+            },
+          },
+        },
+        /** PROFILE SCHEMAS */
+        Profile: {
+          type: 'object',
+          properties: {
+            id: {
+              type: 'integer',
+              description: 'ID del perfil',
+            },
+            userId: {
+              type: 'integer',
+              description: 'ID del usuario asociado',
+            },
+            bio: {
+              type: 'string',
+              description: 'Biografía del usuario',
+              nullable: true,
+            },
+            avatarUrl: {
+              type: 'string',
+              description: 'URL del avatar del usuario',
+              nullable: true,
+            },
+            location: {
+              type: 'string',
+              description: 'Ubicación del usuario',
+              nullable: true,
+            },
+            createdAt: {
+              type: 'string',
+              format: 'date-time',
+              description: 'Fecha de creación del perfil',
+            },
+            updatedAt: {
+              type: 'string',
+              format: 'date-time',
+              description: 'Fecha de actualización del perfil',
+            },
+            user: {
+              $ref: '#/components/schemas/User',
+            },
+          },
+        },
+        CreateProfileInput: {
+          type: 'object',
+          required: ['userId'],
+          properties: {
+            userId: {
+              type: 'integer',
+              description: 'ID del usuario asociado',
+            },
+            bio: {
+              type: 'string',
+              description: 'Biografía del usuario',
+              nullable: true,
+            },
+            avatarUrl: {
+              type: 'string',
+              description: 'URL del avatar del usuario',
+              nullable: true,
+            },
+            location: {
+              type: 'string',
+              description: 'Ubicación del usuario',
+              nullable: true,
+            },
+          },
+        },
+        UpdateProfileProfileInput: { 
+          type: 'object',
+          properties: {
+            bio: {
+              type: 'string',
+              description: 'Biografía actualizada del usuario',
+              nullable: true,
+            },
+            avatarUrl: {
+              type: 'string',
+              description: 'URL del avatar actualizado',
+              nullable: true,
+            },
+            location: {
+              type: 'string',
+              description: 'Ubicación actualizada del usuario',
+              nullable: true,
             },
           },
         },
@@ -147,10 +241,13 @@ const options: swaggerJsdoc.Options = {
         name: 'Users',
         description: 'Gestión de usuarios',
       },
+      {
+        name: 'Profiles',
+        description: 'Gestión de perfiles de usuario',
+      },
     ],
   },
   apis: [join(__dirname, '../modules/**/*.routes.js')],
 };
 
 export const swaggerSpec = swaggerJsdoc(options);
-
