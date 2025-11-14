@@ -31,6 +31,36 @@ const router = Router();
  *                 $ref: '#/components/schemas/Profile'
  *       401:
  *         description: No autorizado
+ *   post:
+ *     summary: Crea un nuevo perfil
+ *     tags: [Profiles]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/CreateProfileInput'
+ *     responses:
+ *       201:
+ *         description: Perfil creado exitosamente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Profile'
+ *       400:
+ *         description: Datos de entrada inválidos o usuario asociado no existe
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *       401:
+ *         description: No autorizado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
  */
 router.get('/', auth, listProfilesCtrl);
 
